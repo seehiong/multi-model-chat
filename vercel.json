@@ -22,10 +22,7 @@
       "src": "/(.*)",
       "dest": "/index.html"
     }
-  ],
-  "env": {
-    "OPENROUTER_API_KEY": "@openrouter-api-key"
-  }
+  ]
 }
 
 
