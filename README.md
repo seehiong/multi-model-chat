@@ -2,9 +2,7 @@
 
 A modern web application that allows you to chat with multiple large language models simultaneously and compare their responses in real-time.
 
-### ✨ [**View Live Demo**](https://your-demo-site-url.com) ✨
-
-*(Replace the link above with your actual deployment URL)*
+### ✨ [**View Live Demo**](https://multi-model-chat-swart.vercel.app/) ✨
 
 ## Screenshot
 
@@ -57,23 +55,7 @@ This application can connect to a wide variety of models through services like O
     npm install
     ```
 
-3.  **Set up environment variables:**
-
-    This project uses [OpenRouter.ai](https://openrouter.ai/) to access many different models via a single API key. You can get a free key from their website.
-
-    Create a `.env` file in the root of the project by copying the example:
-    ```bash
-    cp .env.example .env
-    ```
-
-    Open the `.env` file and add your OpenRouter API Key. **Note:** The `VITE_` prefix is required by Vite to expose the variable to the frontend code.
-    ```env
-    # .env
-    VITE_OPENROUTER_API_KEY="your-openrouter-api-key-here"
-    ```
-    *This key is only used on the client-side and is stored in your browser's local storage via the Settings page. It is never committed to the repository.*
-
-4.  **Start the development server:**
+3.  **Start the development server:**
     ```bash
     npm run dev
     ```
@@ -82,10 +64,11 @@ This application can connect to a wide variety of models through services like O
 ## Usage
 
 1.  Open the application in your browser.
-2.  Click the **Settings** button to enter your OpenRouter API Key.
-3.  Configure any **Local Models** you are running (e.g., via Ollama).
-4.  Return to the main page, select the models you want to chat with.
-5.  Type your message and press Enter!
+2.  To query remote models, you will need an API key from a service like [OpenRouter.ai](https://openrouter.ai/).
+3.  Navigate to the **Settings** page in the application and paste your API key into the "OpenRouter API Key" field. The key is saved to your browser's `localStorage`.
+4.  **Important Security Note:** For maximum security, it is recommended to create temporary keys on your provider's dashboard (like OpenRouter) for your sessions and delete them when you are finished.
+5.  On the settings page, you can also configure any **Local Models** you are running (e.g., via Ollama).
+6.  Return to the main page, select the models you want to chat with, and start your conversation!
 
 ## Deployment
 
@@ -96,7 +79,7 @@ This application is optimized for deployment on static hosting platforms like Ve
 1.  Fork this repository to your own GitHub account.
 2.  Go to [Vercel](https://vercel.com/) and create a new project, importing your forked repository.
 3.  Vercel will automatically detect that it is a Vite project and configure the build settings.
-4.  **There are no server-side environment variables to set.** The API key is managed on the client side.
+4.  **No environment variables are needed for deployment**, as the API key is handled entirely on the client-side.
 5.  Deploy!
 
 ## Project Structure
@@ -112,7 +95,6 @@ This application is optimized for deployment on static hosting platforms like Ve
 │   ├── types/             # TypeScript definitions
 │   ├── App.tsx            # Main application component
 │   └── main.tsx           # Application entry point
-├── .env.example           # Environment variable template
 └── package.json
 ```
 

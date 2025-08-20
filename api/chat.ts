@@ -1,4 +1,3 @@
-import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { ChatRequest, ChatResponse, ModelResponse, OpenRouterRequest, OpenRouterResponse } from '../src/types';
 
 const OPENROUTER_API_URL = 'https://openrouter.ai/api/v1/chat/completions';
@@ -10,6 +9,21 @@ interface OpenRouterError {
     type: string;
     code: string;
   };
+}
+
+interface VercelRequest {
+  method: string;
+  body: any;
+  query: Record<string, string | string[]>;
+  headers: Record<string, string>;
+}
+
+interface VercelResponse {
+  status: (code: number) => VercelResponse;
+  json: (data: any) => void;
+  send: (data: any) => void;
+  end: () => void;
+  setHeader: (name: string, value: string) => void;
 }
 
 export default async function handler(
