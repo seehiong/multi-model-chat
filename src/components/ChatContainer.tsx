@@ -8,6 +8,13 @@ interface ChatContainerProps {
   messages: ChatMessageType[];
 }
 
+const getGridColsClass = (count: number) => {
+  if (count === 1) return 'grid-cols-1';
+  if (count === 2) return 'grid-cols-1 md:grid-cols-2';
+  if (count === 3) return 'grid-cols-1 md:grid-cols-3';
+  return 'grid-cols-1 md:grid-cols-2 lg:grid-cols-4'; // 4 or more
+};
+
 export const ChatContainer: React.FC<ChatContainerProps> = ({ messages }) => {
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -120,57 +127,60 @@ export const ChatContainer: React.FC<ChatContainerProps> = ({ messages }) => {
           </div>
 
           {/* Model responses comparison table */}
-          {group.modelResponses.length > 0 && (
-            <div className="bg-white border border-gray-200 rounded-lg overflow-hidden">
-              {/* Table header */}
-              <div className="bg-gray-50 border-b border-gray-200">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-0">
+          {group.modelResponses.length > 0 && (() => {
+            const gridClass = getGridColsClass(group.modelResponses.length);
+            return (
+              <div className="bg-white border border-gray-200 rounded-lg overflow-hidden shadow-sm">
+                {/* Table header */}
+                <div className="bg-gray-50 border-b border-gray-200">
+                  <div className={`grid gap-0 ${gridClass}`}>
+                    {group.modelResponses.map((response) => (
+                      <div key={response.model} className="p-4 border-b md:border-b-0 md:border-r border-gray-200 last:border-0">
+                        <div className="flex items-center justify-between mb-2">
+                          <h4 className="text-sm font-semibold text-gray-900 truncate">
+                            {getModelName(response.model || '')}
+                          </h4>
+                          <span className="text-xs text-gray-500 bg-gray-200 px-2 py-1 rounded">
+                            {getModelProvider(response.model || '')}
+                          </span>
+                        </div>
+                        <div className="text-xs text-gray-500">
+                          {response.timestamp.toLocaleTimeString([], {
+                            hour: '2-digit',
+                            minute: '2-digit'
+                          })}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Table content */}
+                <div className={`grid gap-0 ${gridClass}`}>
                   {group.modelResponses.map((response) => (
-                    <div key={response.model} className="p-4 border-r border-gray-200 last:border-r-0">
-                      <div className="flex items-center justify-between mb-2">
-                        <h4 className="text-sm font-semibold text-gray-900 truncate">
-                          {getModelName(response.model || '')}
-                        </h4>
-                        <span className="text-xs text-gray-500 bg-gray-200 px-2 py-1 rounded">
-                          {getModelProvider(response.model || '')}
-                        </span>
-                      </div>
-                      <div className="text-xs text-gray-500">
-                        {response.timestamp.toLocaleTimeString([], {
-                          hour: '2-digit',
-                          minute: '2-digit'
-                        })}
-                      </div>
+                    <div key={response.model} className="p-4 border-b md:border-b-0 md:border-r border-gray-200 last:border-0 min-h-[200px]">
+                      {response.isLoading ? (
+                        <div className="flex items-center justify-center h-32">
+                          <div className="text-center">
+                            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600 mx-auto mb-2"></div>
+                            <span className="text-sm text-gray-500">Thinking...</span>
+                          </div>
+                        </div>
+                      ) : response.error ? (
+                        <div className="text-red-600 text-sm p-3 bg-red-50 rounded">
+                          Error: {response.error}
+                        </div>
+                      ) : (
+                        <div className="prose prose-sm max-w-none">
+                          <ChatMessage message={response} />
+                        </div>
+                      )}
                     </div>
                   ))}
                 </div>
               </div>
-
-              {/* Table content */}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-0">
-                {group.modelResponses.map((response) => (
-                  <div key={response.model} className="p-4 border-r border-gray-200 last:border-r-0 min-h-[200px]">
-                    {response.isLoading ? (
-                      <div className="flex items-center justify-center h-32">
-                        <div className="text-center">
-                          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600 mx-auto mb-2"></div>
-                          <span className="text-sm text-gray-500">Thinking...</span>
-                        </div>
-                      </div>
-                    ) : response.error ? (
-                      <div className="text-red-600 text-sm p-3 bg-red-50 rounded">
-                        Error: {response.error}
-                      </div>
-                    ) : (
-                      <div className="prose prose-sm max-w-none">
-                        <ChatMessage message={response} />
-                      </div>
-                    )}
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
+            );
+          })()}
 
           {/* Loading state when waiting for responses */}
           {group.modelResponses.length === 0 && (

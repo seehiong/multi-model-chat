@@ -2,12 +2,12 @@ import { ModelConfig, LocalModelConfig } from '../types';
 
 export const AVAILABLE_MODELS: ModelConfig[] = [
   {
-    id: 'x-ai/grok-code-fast-1',
-    name: 'Grok Code Fast 1',
+    id: 'x-ai/grok-4.3',
+    name: 'Grok 4.3',
     provider: 'xAI',
-    description: 'Grok Code Fast 1 is a speedy and economical reasoning model that excels at agentic coding. With reasoning traces visible in the response, developers can steer Grok Code for high-quality work flows.',
-    maxTokens: 256000,
-    costPer1kTokens: 0.0015,
+    description: 'xAI\'s frontier reasoning model with a 1 million token context window, optimized for complex multi-step tasks, agentic workflows, and deep reasoning.',
+    maxTokens: 1000000,
+    costPer1kTokens: 0.00125,
     type: 'remote'
   },
   {
@@ -23,7 +23,7 @@ export const AVAILABLE_MODELS: ModelConfig[] = [
     id: 'openai/gpt-4o-mini',
     name: 'GPT-4.1 Mini',
     provider: 'OpenAI',
-    description: 'GPT-4o mini is OpenAI\'s newest model after GPT-4 Omni, supporting both text and image inputs with text outputs.',
+    description: 'OpenAI\'s fast, lightweight model designed for high-efficiency and cost-effective text and image processing.',
     maxTokens: 128000,
     costPer1kTokens: 0.0006,
     type: 'remote'
@@ -41,27 +41,45 @@ export const AVAILABLE_MODELS: ModelConfig[] = [
     id: 'mistralai/codestral-2508',
     name: 'Mistral Codestral 2508',
     provider: 'Mistral AI',
-    description: 'Mistral\'s cutting-edge language model for coding released end of July 2025. Codestral specializes in low-latency, high-frequency tasks such as fill-in-the-middle (FIM), code correction and test generation.',
+    description: 'Mistral\'s high-performance code generation model, specializing in low-latency, fill-in-the-middle (FIM), code correction, and test generation.',
     maxTokens: 256000,
     costPer1kTokens: 0.0009,
     type: 'remote'
   },
   {
-    id: 'meta-llama/llama-3.1-405b-instruct',
-    name: 'LLaMA 2 70B',
+    id: 'meta-llama/llama-3.3-70b-instruct',
+    name: 'LLaMA 3.3 70B',
     provider: 'Meta',
-    description: 'The highly anticipated 400B class of Llama3 is here! Clocking in at 128k context with impressive eval scores, the Meta AI team continues to push the frontier of open-source LLMs.',
+    description: 'Meta\'s state-of-the-art Llama 3.3 70B Instruct model, featuring high-quality reasoning, instruction following, coding, and multilingual support with a 128k context window.',
     maxTokens: 128000,
-    costPer1kTokens: 0.0008,
+    costPer1kTokens: 0.0003,
     type: 'remote'
   },
   {
-    id: 'google/gemini-2.0-flash-001',
-    name: 'Gemini 2.0 Flash',
+    id: 'google/gemini-2.5-flash',
+    name: 'Gemini 2.5 Flash',
     provider: 'Google',
-    description: 'Gemini Flash 2.0 offers a significantly faster time to first token (TTFT) compared to Gemini Flash 1.5, while maintaining quality on par with larger models like Gemini Pro 1.5',
+    description: 'Google\'s Gemini 2.5 Flash model, a fast and lightweight model optimized for high-frequency reasoning, coding, math, and multimodal tasks with a 1 million token context window.',
     maxTokens: 1048576,
-    costPer1kTokens: 0.0004,
+    costPer1kTokens: 0.0003,
+    type: 'remote'
+  },
+  {
+    id: 'nvidia/nemotron-3-ultra-550b-a55b:free',
+    name: 'Nemotron 3 Ultra (Free)',
+    provider: 'Nvidia',
+    description: 'NVIDIA\'s frontier reasoning and orchestration model featuring a hybrid Transformer-Mamba MoE architecture, built for multi-step reasoning, coding, and complex workflows.',
+    maxTokens: 1000000,
+    costPer1kTokens: 0.0,
+    type: 'remote'
+  },
+  {
+    id: 'google/gemma-4-31b-it:free',
+    name: 'Gemma 4 31B (Free)',
+    provider: 'Google',
+    description: 'Google DeepMind\'s dense multimodal model with 30.7B parameters, featuring configurable reasoning/thinking, native function calling, and multilingual support.',
+    maxTokens: 262144,
+    costPer1kTokens: 0.0,
     type: 'remote'
   }
 ];

@@ -68,9 +68,9 @@ export const ModelSelector: React.FC<ModelSelectorProps> = ({
         {allModels.map((model) => (
           <div
             key={model.id}
-            className={`relative p-3 rounded-lg border-2 cursor-pointer transition-all ${selectedModels.includes(model.id)
-              ? 'border-primary-500 bg-primary-50'
-              : 'border-gray-200 bg-gray-50 hover:border-gray-300'
+            className={`relative p-3 rounded-lg border-2 cursor-pointer transition-all duration-200 hover:-translate-y-[1px] ${selectedModels.includes(model.id)
+              ? 'border-primary-500 bg-primary-50 shadow-sm ring-2 ring-primary-500/10'
+              : 'border-gray-200 bg-gray-50 hover:bg-white hover:border-gray-300 hover:shadow-md'
               }`}
             onClick={() => handleModelToggle(model.id)}
           >

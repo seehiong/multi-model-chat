@@ -1,4 +1,4 @@
-import { ChatRequest, ChatResponse, ModelResponse, LocalModelConfig } from '../types';
+import { ModelResponse, LocalModelConfig } from '../types';
 import { SettingsService } from './settings';
 
 
@@ -36,13 +36,6 @@ export class ApiService {
       console.error(`API request failed for URL: ${url}`, error);
       throw error;
     }
-  }
-
-  static async sendMessage(request: ChatRequest): Promise<ChatResponse> {
-    return this.makeRequest<ChatResponse>('/chat', {
-      method: 'POST',
-      body: JSON.stringify(request),
-    });
   }
 
   static async queryModels(
